@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Menu, MenuItem, Segment } from "semantic-ui-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { Suspense } from "react";
 
 const NavbarSpacer: React.FunctionComponent = () => {
   const searchParams = useSearchParams();
@@ -15,8 +16,9 @@ const NavbarSpacer: React.FunctionComponent = () => {
   }
   return (
     // <Segment inverted fixed="top" size="mini">
-    <Menu stackable inverted style={{ marginTop: 0 }}>
-      {/* <MenuItem>
+    <Suspense fallback={<></>}>
+      <Menu stackable inverted style={{ marginTop: 0 }}>
+        {/* <MenuItem>
         <Image
           alt="logo"
           src="https://react.semantic-ui.com/logo.png"
@@ -24,8 +26,8 @@ const NavbarSpacer: React.FunctionComponent = () => {
           height="30"
         />
       </MenuItem> */}
-    </Menu>
-    // </Segment>
+      </Menu>
+    </Suspense>
   );
 };
 

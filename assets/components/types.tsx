@@ -23,6 +23,9 @@ export type XRObjectDesignerProps = XRObjectProps & {
   // onDrag: (event: XREvent<XRManagerEvent>) => void;
   rotateEnabled?: boolean;
   dragEnabled?: boolean;
+  onClick?: () => void;
+  highlighted?: boolean;
+  hidden?: boolean;
 };
 
 export type XRSceneProps = {
@@ -32,6 +35,23 @@ export type XRSceneProps = {
   onSessionEnd?: (event: XREvent<XRManagerEvent>) => void;
 };
 
+export type URLDropdownOption = {
+  title: string;
+  thumbURL?: string;
+  modelURL: string;
+  text?: string;
+};
+
+export type URLComboBoxProps = {
+  URLDropdownOptions?: Array<URLDropdownOption>;
+  allowURLEntry?: boolean;
+  value?: string;
+  onChange?: (value: string) => void;
+  onSubmit: (value: string) => void;
+};
+
 export type XRSceneDesignerProps = XRSceneProps & {
   XRObjectDesignerPropsArray: Array<XRObjectDesignerProps>;
+  URLDropdownOptions?: Array<URLDropdownOption>;
+  allowURLEntry?: boolean;
 };

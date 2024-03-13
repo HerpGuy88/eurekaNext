@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, useMemo } from "react";
+import { Suspense, useRef, useState, useEffect, useMemo } from "react";
 import { VRButton, ARButton, XR, Controllers, Hands } from "@react-three/xr";
 import { Canvas } from "@react-three/fiber";
 import { CameraControls, Stage } from "@react-three/drei";
@@ -21,15 +21,16 @@ import {
 import { truncate } from "@assets/functions";
 import { Euler, Matrix4, Quaternion, Vector3 } from "three";
 import WithPivot from "./WithPivot";
+import URLComboBox from "./URLComboBox";
 // import { PivotControlsProps } from "@react-three/drei/web/pivotControls" //this type is not exported, maybe make a PR?
 
 function ModelCard({
-  modelURL,
+  model,
   selected,
   onClick,
   ...rest
 }: {
-  modelURL: string;
+  model: XRObjectDesignerProps;
   selected: boolean;
   onClick?: () => void;
 }) {
@@ -39,17 +40,43 @@ function ModelCard({
       color={selected ? "red" : undefined}
       onClick={onClick}
     >
-      <p>
-        {modelURL?.split && modelURL.split("/").length > 1
-          ? `...${modelURL.split("/")[modelURL.split("/").length - 1]}`
-          : modelURL}
+      <p
+        style={{
+          paddingBottom: 0,
+          marginBottom: 0,
+          color: "blue",
+          fontWeight: "bolder",
+          fontSize: 12,
+          cursor: "pointer",
+        }}
+        onClick={onClick}
+      >
+        Select
       </p>
+      Model URL:{" "}
+      {model?.modelURL?.split && model.modelURL.split("/").length > 1
+        ? `...${
+            model.modelURL.split("/")[model.modelURL.split("/").length - 1]
+          }`
+        : model?.modelURL}
+      <br />
+      Position (X,Y,Z):{" "}
+      {`${Math.round((model?.position[0] || 0) * 100) / 100}, 
+      ${Math.round((model?.position[1] || 0) * 100) / 100}, 
+      ${Math.round((model?.position[2] || 0) * 100) / 100}`}
+      <br />
+      {`Rotation (\u03B1,\u03B2,\u03B3): `}
+      {`${Math.round((model?.rotation[0] || 0) * 100) / 100}, 
+      ${Math.round((model?.rotation[1] || 0) * 100) / 100}, 
+      ${Math.round((model?.rotation[2] || 0) * 100) / 100}`}
     </Segment>
   );
 }
 
 export default function XRSceneDesigner({
   XRObjectPropsArray,
+  URLDropdownOptions,
+  allowURLEntry,
   ...rest
 }: XRSceneDesignerProps) {
   const { children, onSessionEnd, onSessionStart } = rest;
@@ -72,11 +99,12 @@ export default function XRSceneDesigner({
   }, [meshArray]);
   const [cameraEnabled, setCameraEnabled] = useState(true);
   const [mode, setMode] = useState("camera");
-  const [selectedObject, setSelectedObject] = useState<number | undefined>(
-    undefined
-  );
+  const [selectedObject, setSelectedObject] = useState<number | null>(null);
 
   const transformMeshArray = async () => {
+    if (!tempMeshArray.length) {
+      return;
+    }
     const newMeshArray: Array<XRObjectDesignerProps> = [];
     console.log(meshRefs);
     for (let i = 0; i < (tempMeshArray ? tempMeshArray.length : 0); i++) {
@@ -104,17 +132,61 @@ export default function XRSceneDesigner({
     return newMeshArray;
   };
 
-  const addModelFromURL = () => {
+  const addModelFromURL = (value: string) => {
+    console.log(value);
+    if (!value) {
+      return;
+    }
     const newArray = meshArray?.slice(0, meshArray.length);
     newArray?.push({
-      modelURL: newURL,
+      modelURL: value,
       loaderType: "gltf",
       scale: 0.02,
       position: [0.5, 0, 0],
       rotation: [0, 0, 0],
+      hidden: false,
+      highlighted: false,
     });
     setMeshArray(newArray || []);
     setTempMeshArray(newArray || []);
+    setNewURL("");
+  };
+
+  const removeModel = (index: number) => {
+    console.log(index);
+    let newArray = meshArray?.toSpliced(index, 1);
+    setMeshArray(newArray);
+    if (mode === "move") {
+      newArray = tempMeshArray?.toSpliced(index, 1);
+      setTempMeshArray(newArray);
+    }
+    setSelectedObject(null);
+  };
+
+  const toggleHidden = () => {
+    let thisObject = meshArray?.slice(selectedObject, selectedObject + 1)[0];
+    console.log("thisObject", thisObject);
+    thisObject["hidden"] = !thisObject["hidden"];
+    setMeshArray(meshArray?.toSpliced(selectedObject, 1, thisObject));
+    if (mode === "move") {
+      thisObject = tempMeshArray?.slice(selectedObject, selectedObject + 1)[0];
+      console.log("thisObject", thisObject);
+      thisObject["hidden"] = !thisObject["hidden"];
+      setTempMeshArray(tempMeshArray?.toSpliced(selectedObject, 1, thisObject));
+    }
+  };
+
+  const toggleHighlight = () => {
+    let thisObject = meshArray?.slice(selectedObject, selectedObject + 1)[0];
+    console.log("thisObject", thisObject);
+    thisObject["highlighted"] = !thisObject["highlighted"];
+    setMeshArray(meshArray?.toSpliced(selectedObject, 1, thisObject));
+    if (mode === "move") {
+      thisObject = tempMeshArray?.slice(selectedObject, selectedObject + 1)[0];
+      console.log("thisObject", thisObject);
+      thisObject["highlighted"] = !thisObject["highlighted"];
+      setTempMeshArray(tempMeshArray?.toSpliced(selectedObject, 1, thisObject));
+    }
   };
 
   return (
@@ -143,7 +215,8 @@ export default function XRSceneDesigner({
             </Button>
             <Button
               onClick={() => {
-                setTempMeshArray(JSON.parse(JSON.stringify(meshArray)));
+                meshArray?.length &&
+                  setTempMeshArray(JSON.parse(JSON.stringify(meshArray)));
                 setMode("move");
               }}
               active={mode === "move"}
@@ -152,27 +225,57 @@ export default function XRSceneDesigner({
             </Button>
             {/* </ButtonGroup> */}
           </Segment>
-          {meshArray &&
-            meshArray.map((props, index) => {
-              console.log("index", index);
-              return (
-                <ModelCard
-                  modelURL={props.modelURL}
-                  selected={selectedObject === index}
-                  key={`mc${index}`}
-                />
-              );
-            })}
+          {(mode === "camera" ? meshArray : tempMeshArray) &&
+            //@ts-ignore
+            (mode === "camera" ? meshArray : tempMeshArray).map(
+              (props, index) => {
+                console.log("index", index);
+                return (
+                  <ModelCard
+                    model={props}
+                    selected={selectedObject === index}
+                    key={`mc${index}`}
+                    onClick={() => setSelectedObject(index)}
+                  />
+                );
+              }
+            )}
           <Segment>
-            <Button onClick={addModelFromURL}>Add</Button>
-            <Input
+            {/* <Button onClick={addModelFromURL}>Add</Button> */}
+            {/* <Input
               value={newURL}
               onChange={(e) => setNewURL(e.target.value)}
               placeholder="New Model URL..."
+            /> */}
+            <URLComboBox
+              URLDropdownOptions={URLDropdownOptions}
+              onSubmit={(value) => addModelFromURL(value)}
             />
           </Segment>
           <Segment textAlign="center">
-            <Button compact>Remove Selected</Button>
+            <Button
+              compact
+              disabled={selectedObject === null}
+              onClick={() =>
+                selectedObject !== null && removeModel(selectedObject)
+              }
+            >
+              Remove
+            </Button>
+            <Button
+              compact
+              disabled={selectedObject === null}
+              onClick={toggleHidden}
+            >
+              Hide
+            </Button>
+            <Button
+              compact
+              disabled={selectedObject === null}
+              onClick={toggleHighlight}
+            >
+              Highlight
+            </Button>
           </Segment>
         </SegmentGroup>
       </Segment>

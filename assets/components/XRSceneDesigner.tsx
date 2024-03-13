@@ -129,28 +129,28 @@ export default function XRSceneDesigner({
       >
         <SegmentGroup>
           <Segment>
-            <ButtonGroup>
-              <Button
-                onClick={async () => {
-                  const newMeshArray: Array<XRObjectDesignerProps> =
-                    await transformMeshArray();
-                  setMeshArray(newMeshArray);
-                  setMode("camera");
-                }}
-                active={mode === "camera"}
-              >
-                Move Camera
-              </Button>
-              <Button
-                onClick={() => {
-                  setTempMeshArray(JSON.parse(JSON.stringify(meshArray)));
-                  setMode("move");
-                }}
-                active={mode === "move"}
-              >
-                Move Objects
-              </Button>
-            </ButtonGroup>
+            {/* <ButtonGroup> */}
+            <Button
+              onClick={async () => {
+                const newMeshArray: Array<XRObjectDesignerProps> =
+                  await transformMeshArray();
+                setMeshArray(newMeshArray);
+                setMode("camera");
+              }}
+              active={mode === "camera"}
+            >
+              Move Camera
+            </Button>
+            <Button
+              onClick={() => {
+                setTempMeshArray(JSON.parse(JSON.stringify(meshArray)));
+                setMode("move");
+              }}
+              active={mode === "move"}
+            >
+              Move Objects
+            </Button>
+            {/* </ButtonGroup> */}
           </Segment>
           {meshArray &&
             meshArray.map((props, index) => {

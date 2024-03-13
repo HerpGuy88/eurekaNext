@@ -1,15 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { VRButton, ARButton, XR, Controllers, Hands } from "@react-three/xr";
-import { Canvas } from "@react-three/fiber";
-import {
-  CameraControls,
-  Stage,
-  DragControls,
-  PivotControls,
-  Environment,
-} from "@react-three/drei";
+import { CameraControls, Environment } from "@react-three/drei";
 import { XRScene, XRSceneDesigner } from "@assets/components";
 import { XRObjectProps } from "@assets/components/types";
 import { useRouter, usePathname } from "next/navigation";
@@ -45,38 +37,21 @@ export default function XRDemo() {
   const router = useRouter();
   const currentPath = usePathname();
   function removeXRparam() {
-    //@ts-ignore
-    router.push(currentPath, undefined, {
-      shallow: true,
-    });
+    router?.push &&
+      router.push(currentPath, {
+        //@ts-ignore
+        shallow: true,
+      });
   }
   const addXRparam = () => {
-    //@ts-ignore
-    router.push(`${currentPath}?xrMode=true`, undefined, {
-      shallow: true,
-    });
+    router?.push &&
+      router.push(`${currentPath}?xrMode=true`, {
+        //@ts-ignore
+        shallow: true,
+      });
   };
   return (
-    // <>
-    //   <VRButton />
-    //   <Canvas>
-    //     <CameraControls ref={cameraControlRef} enabled={false} />
-    //     <XR>
-    //       <Stage>
-    //         <Controllers />
-    //         <Hands />
-    //         <DragControls>
-    //           <PivotControls>
-    //             <mesh>
-    //               <boxGeometry />
-    //               <meshPhongMaterial color="blue" />
-    //             </mesh>
-    //           </PivotControls>
-    //         </DragControls>
-    //       </Stage>
-    //     </XR>
-    //   </Canvas>
-    // </>
+    // <p>hi</p>
     //@ts-ignore
     <XRSceneDesigner
       XRObjectPropsArray={propsArray}

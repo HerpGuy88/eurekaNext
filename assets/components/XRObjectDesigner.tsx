@@ -13,19 +13,26 @@ import {
 import { Vector3, Euler } from "three";
 import { PrimitiveProps } from "@react-three/fiber";
 import { XRObjectDesignerProps } from "./types";
+import { useTraverseGLTF } from "@assets/functions";
 
 const Model = forwardRef<any, PrimitiveProps>((props, ref) => {
-  const { modelurl } = props;
+  const { modelURL, onClick } = props;
 
-  useGLTF.preload(modelurl);
-  //@ts-ignore
-  const { scene } = useGLTF(modelurl);
+  // useGLTF.preload(modelurl);
+  // //@ts-ignore
+  // const { scene } = useGLTF(modelurl);
+  const { geometry, material } = useTraverseGLTF(modelURL);
 
   // useLayoutEffect(() => {
   //   convertOpacityToTransmission(scene);
   // }, []);
 
-  return <primitive {...props} object={scene} ref={ref} />;
+  // return <primitive {...props} object={scene} ref={ref} />;
+  return (
+    <group ref={ref} {...props} dispose={null}>
+      <mesh geometry={geometry} material={material} onClick={onClick} />
+    </group>
+  );
 });
 Model.displayName = "Model";
 
@@ -40,7 +47,8 @@ const XRObjectDesigner = forwardRef<any, XRObjectDesignerProps>(
       children,
       dragEnabled,
       rotateEnabled,
-      ...rest
+      onClick,
+      ...props
     },
     ref
   ) => {
@@ -51,6 +59,7 @@ const XRObjectDesigner = forwardRef<any, XRObjectDesignerProps>(
           scale={scale || 1}
           position={position}
           rotation={rotation}
+          onClick={onClick}
           ref={ref}
         >
           <boxGeometry />
@@ -69,10 +78,11 @@ const XRObjectDesigner = forwardRef<any, XRObjectDesignerProps>(
         //   >
         <Model
           ref={ref}
-          modelurl={modelURL}
+          modelURL={modelURL}
           scale={scale || 1}
           position={position}
           rotation={rotation}
+          onClick={onClick}
         />
         //   </DragControls>
         // </PivotControls>

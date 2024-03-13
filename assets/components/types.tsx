@@ -26,12 +26,12 @@ export type XRObjectDesignerProps = XRObjectProps & {
 };
 
 export type XRSceneProps = {
-  XRObjectPropsArray?: Array<XRObjectProps>;
+  XRObjectPropsArray: Array<XRObjectProps>;
   children?: React.ReactNode;
   onSessionStart?: (event: XREvent<XRManagerEvent>) => void;
   onSessionEnd?: (event: XREvent<XRManagerEvent>) => void;
 };
 
 export type XRSceneDesignerProps = XRSceneProps & {
-  XRObjectDesignerPropsArray?: Array<XRObjectDesignerProps>;
+  XRObjectDesignerPropsArray: Array<XRObjectDesignerProps>;
 };

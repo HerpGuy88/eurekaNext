@@ -45,11 +45,13 @@ export default function XRDemo() {
   const router = useRouter();
   const currentPath = usePathname();
   function removeXRparam() {
+    //@ts-ignore
     router.push(currentPath, undefined, {
       shallow: true,
     });
   }
   const addXRparam = () => {
+    //@ts-ignore
     router.push(`${currentPath}?xrMode=true`, undefined, {
       shallow: true,
     });
@@ -75,6 +77,7 @@ export default function XRDemo() {
     //     </XR>
     //   </Canvas>
     // </>
+    //@ts-ignore
     <XRSceneDesigner
       XRObjectPropsArray={propsArray}
       onSessionEnd={removeXRparam}

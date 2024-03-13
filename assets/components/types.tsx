@@ -11,7 +11,7 @@ export type Rotation = [x, y, z] | Euler | Quaternion;
 export type XRObjectProps = JSX.IntrinsicElements["mesh"] & {
   modelURL: string;
   loaderType: LoaderType;
-  scale?: number | [x, y, z];
+  scale?: number | [x, y, z] | Vector3;
   position: Position;
   rotation?: Rotation;
   children?: React.ReactNode;

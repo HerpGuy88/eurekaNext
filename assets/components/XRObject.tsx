@@ -6,18 +6,19 @@ import { useRef } from "react";
 import { CameraControls, useGLTF } from "@react-three/drei";
 import { Vector3, Euler } from "three";
 import { PrimitiveProps } from "@react-three/fiber";
+import { XRObjectProps } from "./types";
 type LoaderType = "gltf" | "draco";
 type x = number;
 type y = number;
 type z = number;
 
-type XRObjectProps = JSX.IntrinsicElements["mesh"] & {
-  modelURL: string;
-  loaderType: LoaderType;
-  scale: number | [x, y, z];
-  position: Vector3 | [x, y, z];
-  rotation: Euler | [x, y, z];
-};
+// type XRObjectProps = JSX.IntrinsicElements["mesh"] & {
+//   modelURL: string;
+//   loaderType: LoaderType;
+//   scale: number | [x, y, z];
+//   position: Vector3 | [x, y, z];
+//   rotation: Euler | [x, y, z];
+// };
 
 function Model(props: PrimitiveProps) {
   const { modelurl } = props;

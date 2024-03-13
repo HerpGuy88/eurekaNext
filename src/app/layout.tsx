@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "semantic-ui-css/semantic.min.css";
 import { Navbar, NavbarSpacer } from "@assets/components";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,8 +24,10 @@ export default function RootLayout({
         className={inter.className}
         style={{ backgroundImage: `url(${bg.src})` }}
       >
-        <Navbar />
-        <NavbarSpacer />
+        <Suspense fallback={<></>}>
+          <Navbar />
+          <NavbarSpacer />
+        </Suspense>
         <span className="mainContent">{children}</span>
       </body>
     </html>

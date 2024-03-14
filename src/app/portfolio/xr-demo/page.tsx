@@ -18,15 +18,6 @@ const propsArray: Array<XRObjectDesignerProps> = [
     hidden: false,
     highlighted: false,
   },
-  {
-    modelURL: "",
-    loaderType: "gltf",
-    scale: 1,
-    position: [0.5, 1, 0],
-    rotation: [0, 0, 0],
-    hidden: false,
-    highlighted: false,
-  },
 ];
 
 const urlOptions = [

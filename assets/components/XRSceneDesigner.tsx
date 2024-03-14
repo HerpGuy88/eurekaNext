@@ -44,31 +44,50 @@ function ModelCard({
         style={{
           paddingBottom: 0,
           marginBottom: 0,
-          color: "blue",
-          fontWeight: "bolder",
           fontSize: 12,
-          cursor: "pointer",
+          color: selected ? undefined : "black",
+          whiteSpace: "pre-wrap",
         }}
-        onClick={onClick}
       >
-        Select
+        <span
+          style={{
+            color: "blue",
+            fontWeight: "bolder",
+            cursor: "pointer",
+            borderStyle: "solid",
+            borderWidth: 1,
+          }}
+          onClick={onClick}
+        >
+          Select
+        </span>
+        {model?.hidden && "    -HIDDEN-"}
+        {model?.highlighted && "    -HIGHLIGHTED-"}
       </p>
-      Model URL:{" "}
-      {model?.modelURL?.split && model.modelURL.split("/").length > 1
-        ? `...${
-            model.modelURL.split("/")[model.modelURL.split("/").length - 1]
-          }`
-        : model?.modelURL}
-      <br />
-      Position (X,Y,Z):{" "}
-      {`${Math.round((model?.position[0] || 0) * 100) / 100}, 
+      <p
+        style={{
+          color: selected ? undefined : "black",
+          fontSize: 12,
+          marginTop: 0,
+        }}
+      >
+        Model URL:{" "}
+        {model?.modelURL?.split && model.modelURL.split("/").length > 1
+          ? `...${
+              model.modelURL.split("/")[model.modelURL.split("/").length - 1]
+            }`
+          : model?.modelURL}
+        <br />
+        Position (X,Y,Z):{" "}
+        {`${Math.round((model?.position[0] || 0) * 100) / 100}, 
       ${Math.round((model?.position[1] || 0) * 100) / 100}, 
       ${Math.round((model?.position[2] || 0) * 100) / 100}`}
-      <br />
-      {`Rotation (\u03B1,\u03B2,\u03B3): `}
-      {`${Math.round((model?.rotation[0] || 0) * 100) / 100}, 
+        <br />
+        {`Rotation (\u03B1,\u03B2,\u03B3): `}
+        {`${Math.round((model?.rotation[0] || 0) * 100) / 100}, 
       ${Math.round((model?.rotation[1] || 0) * 100) / 100}, 
       ${Math.round((model?.rotation[2] || 0) * 100) / 100}`}
+      </p>
     </Segment>
   );
 }
@@ -225,21 +244,33 @@ export default function XRSceneDesigner({
             </Button>
             {/* </ButtonGroup> */}
           </Segment>
-          {(mode === "camera" ? meshArray : tempMeshArray) &&
-            //@ts-ignore
-            (mode === "camera" ? meshArray : tempMeshArray).map(
-              (props, index) => {
-                console.log("index", index);
-                return (
-                  <ModelCard
-                    model={props}
-                    selected={selectedObject === index}
-                    key={`mc${index}`}
-                    onClick={() => setSelectedObject(index)}
-                  />
-                );
-              }
-            )}
+          <div
+            style={{
+              // display: "flex",
+              // flexDirection: "column",
+              // justifyContent: "flex-start",
+              height: "40vh",
+              overflowY: "scroll",
+            }}
+          >
+            <SegmentGroup>
+              {(mode === "camera" ? meshArray : tempMeshArray) &&
+                //@ts-ignore
+                (mode === "camera" ? meshArray : tempMeshArray).map(
+                  (props, index) => {
+                    console.log("index", index);
+                    return (
+                      <ModelCard
+                        model={props}
+                        selected={selectedObject === index}
+                        key={`mc${index}`}
+                        onClick={() => setSelectedObject(index)}
+                      />
+                    );
+                  }
+                )}
+            </SegmentGroup>
+          </div>
           <Segment>
             {/* <Button onClick={addModelFromURL}>Add</Button> */}
             {/* <Input
@@ -250,6 +281,7 @@ export default function XRSceneDesigner({
             <URLComboBox
               URLDropdownOptions={URLDropdownOptions}
               onSubmit={(value) => addModelFromURL(value)}
+              allowURLEntry={allowURLEntry}
             />
           </Segment>
           <Segment textAlign="center">

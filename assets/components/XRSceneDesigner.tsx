@@ -211,7 +211,11 @@ export default function XRSceneDesigner({
   };
 
   return (
-    <>
+    <div
+      style={{
+        height: "95vh",
+      }}
+    >
       <Segment
         compact
         textAlign="center"
@@ -354,6 +358,6 @@ export default function XRSceneDesigner({
           <Hands />
         </XR>
       </Canvas>
-    </>
+    </div>
   );
 }

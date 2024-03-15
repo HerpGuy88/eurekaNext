@@ -25,8 +25,10 @@ export default function RootLayout({
         style={{ backgroundImage: `url(${bg.src})` }}
       >
         <Suspense fallback={<></>}>
-          <Navbar />
-          <NavbarSpacer />
+          <div>
+            <Navbar />
+            <NavbarSpacer />
+          </div>
         </Suspense>
 
         <span className="mainContent">{children}</span>

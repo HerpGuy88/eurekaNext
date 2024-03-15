@@ -92,17 +92,15 @@ export default function XRDemo() {
   };
   return (
     // <p>hi</p>
-    <div style={{ flexGrow: 1 }}>
-      {/* @ts-ignore */}
-      <XRSceneDesigner
-        XRObjectPropsArray={propsArray}
-        URLDropdownOptions={urlOptions}
-        allowURLEntry={true}
-        onSessionEnd={removeXRparam}
-        onSessionStart={addXRparam}
-      >
-        <Environment files="/zavelstein_1k.exr" background />
-      </XRSceneDesigner>
-    </div>
+    //@ts-ignore */}
+    <XRSceneDesigner
+      XRObjectPropsArray={propsArray}
+      URLDropdownOptions={urlOptions}
+      allowURLEntry={true}
+      onSessionEnd={removeXRparam}
+      onSessionStart={addXRparam}
+    >
+      <Environment files="/zavelstein_1k.exr" background />
+    </XRSceneDesigner>
   );
 }

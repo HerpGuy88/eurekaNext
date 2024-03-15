@@ -106,6 +106,7 @@ export default function XRSceneDesigner({
     Array<XRObjectDesignerProps>
   >([]);
   const [newURL, setNewURL] = useState("");
+  const [controlsHidden, setControlsHidden] = useState(false);
 
   useEffect(() => {
     setMeshArray(XRObjectPropsArray);
@@ -212,104 +213,112 @@ export default function XRSceneDesigner({
     <>
       <Segment
         compact
+        textAlign="center"
         style={{
           zIndex: 10,
           position: "absolute",
           maxWidth: "20vw",
         }}
       >
-        <SegmentGroup>
-          <Segment>
-            {/* <ButtonGroup> */}
-            <Button
-              onClick={async () => {
-                const newMeshArray: Array<XRObjectDesignerProps> =
-                  await transformMeshArray();
-                setMeshArray(newMeshArray);
-                setMode("camera");
+        <Button mini onClick={() => setControlsHidden(!controlsHidden)}>
+          {controlsHidden ? "Show Controls" : "Hide Controls"}
+        </Button>
+        <div
+          style={controlsHidden ? { visibility: "collapse", height: 0 } : {}}
+        >
+          <SegmentGroup>
+            <Segment>
+              {/* <ButtonGroup> */}
+              <Button
+                onClick={async () => {
+                  const newMeshArray: Array<XRObjectDesignerProps> =
+                    await transformMeshArray();
+                  setMeshArray(newMeshArray);
+                  setMode("camera");
+                }}
+                active={mode === "camera"}
+              >
+                Move Camera
+              </Button>
+              <Button
+                onClick={() => {
+                  meshArray?.length &&
+                    setTempMeshArray(JSON.parse(JSON.stringify(meshArray)));
+                  setMode("move");
+                }}
+                active={mode === "move"}
+              >
+                Move Objects
+              </Button>
+              {/* </ButtonGroup> */}
+            </Segment>
+            <div
+              style={{
+                // display: "flex",
+                // flexDirection: "column",
+                // justifyContent: "flex-start",
+                height: "40vh",
+                overflowY: "scroll",
               }}
-              active={mode === "camera"}
             >
-              Move Camera
-            </Button>
-            <Button
-              onClick={() => {
-                meshArray?.length &&
-                  setTempMeshArray(JSON.parse(JSON.stringify(meshArray)));
-                setMode("move");
-              }}
-              active={mode === "move"}
-            >
-              Move Objects
-            </Button>
-            {/* </ButtonGroup> */}
-          </Segment>
-          <div
-            style={{
-              // display: "flex",
-              // flexDirection: "column",
-              // justifyContent: "flex-start",
-              height: "40vh",
-              overflowY: "scroll",
-            }}
-          >
-            <SegmentGroup>
-              {(mode === "camera" ? meshArray : tempMeshArray) &&
-                //@ts-ignore
-                (mode === "camera" ? meshArray : tempMeshArray).map(
-                  (props, index) => {
-                    console.log("index", index);
-                    return (
-                      <ModelCard
-                        model={props}
-                        selected={selectedObject === index}
-                        key={`mc${index}`}
-                        onClick={() => setSelectedObject(index)}
-                      />
-                    );
-                  }
-                )}
-            </SegmentGroup>
-          </div>
-          <Segment>
-            {/* <Button onClick={addModelFromURL}>Add</Button> */}
-            {/* <Input
+              <SegmentGroup>
+                {(mode === "camera" ? meshArray : tempMeshArray) &&
+                  //@ts-ignore
+                  (mode === "camera" ? meshArray : tempMeshArray).map(
+                    (props, index) => {
+                      console.log("index", index);
+                      return (
+                        <ModelCard
+                          model={props}
+                          selected={selectedObject === index}
+                          key={`mc${index}`}
+                          onClick={() => setSelectedObject(index)}
+                        />
+                      );
+                    }
+                  )}
+              </SegmentGroup>
+            </div>
+            <Segment>
+              {/* <Button onClick={addModelFromURL}>Add</Button> */}
+              {/* <Input
               value={newURL}
               onChange={(e) => setNewURL(e.target.value)}
               placeholder="New Model URL..."
             /> */}
-            <URLComboBox
-              URLDropdownOptions={URLDropdownOptions}
-              onSubmit={(value) => addModelFromURL(value)}
-              allowURLEntry={allowURLEntry}
-            />
-          </Segment>
-          <Segment textAlign="center">
-            <Button
-              compact
-              disabled={selectedObject === null}
-              onClick={() =>
-                selectedObject !== null && removeModel(selectedObject)
-              }
-            >
-              Remove
-            </Button>
-            <Button
-              compact
-              disabled={selectedObject === null}
-              onClick={toggleHidden}
-            >
-              Hide
-            </Button>
-            <Button
-              compact
-              disabled={selectedObject === null}
-              onClick={toggleHighlight}
-            >
-              Highlight
-            </Button>
-          </Segment>
-        </SegmentGroup>
+              <URLComboBox
+                URLDropdownOptions={URLDropdownOptions}
+                onSubmit={(value) => addModelFromURL(value)}
+                allowURLEntry={allowURLEntry}
+              />
+            </Segment>
+            <Segment textAlign="center">
+              <Button
+                compact
+                disabled={selectedObject === null}
+                onClick={() =>
+                  selectedObject !== null && removeModel(selectedObject)
+                }
+              >
+                Remove
+              </Button>
+              <Button
+                compact
+                disabled={selectedObject === null}
+                onClick={toggleHidden}
+              >
+                Hide
+              </Button>
+              <Button
+                compact
+                disabled={selectedObject === null}
+                onClick={toggleHighlight}
+              >
+                Highlight
+              </Button>
+            </Segment>
+          </SegmentGroup>
+        </div>
       </Segment>
       <VRButton />
       <Canvas>

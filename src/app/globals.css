@@ -87,6 +87,9 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
+  /* display: flex;
+  flex-flow: column;
+  height: 100%; */
   background: linear-gradient(
       to bottom,
       transparent,
@@ -96,11 +99,9 @@ body {
 }
 
 #mainContent {
-  display: flex;
-  flex: 1;
-  align-items: stretch;
-  /* height: 100%;
-  width: 100%; */
+  /* display: flex; */
+  flex-grow: 1;
+  /* align-items: stretch; */
   /* position: absolute;
   top: 0;
   left: 0;
@@ -117,4 +118,10 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+#box {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
 }

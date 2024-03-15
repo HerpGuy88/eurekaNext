@@ -5,6 +5,7 @@ import { CameraControls, Environment } from "@react-three/drei";
 import { XRScene, XRSceneDesigner } from "@assets/components";
 import { XRObjectProps, XRObjectDesignerProps } from "@assets/components/types";
 import { useRouter, usePathname } from "next/navigation";
+import styles from "@/app/page.module.css";
 // import hdr from "../../../../assets/hdris/zavelstei_1k.hdr";
 
 const propsArray: Array<XRObjectDesignerProps> = [
@@ -91,15 +92,17 @@ export default function XRDemo() {
   };
   return (
     // <p>hi</p>
-    //@ts-ignore
-    <XRSceneDesigner
-      XRObjectPropsArray={propsArray}
-      URLDropdownOptions={urlOptions}
-      allowURLEntry={true}
-      onSessionEnd={removeXRparam}
-      onSessionStart={addXRparam}
-    >
-      <Environment files="/zavelstein_1k.exr" background />
-    </XRSceneDesigner>
+    <div style={{ flexGrow: 1 }}>
+      {/* @ts-ignore */}
+      <XRSceneDesigner
+        XRObjectPropsArray={propsArray}
+        URLDropdownOptions={urlOptions}
+        allowURLEntry={true}
+        onSessionEnd={removeXRparam}
+        onSessionStart={addXRparam}
+      >
+        <Environment files="/zavelstein_1k.exr" background />
+      </XRSceneDesigner>
+    </div>
   );
 }

@@ -17,7 +17,7 @@ const NavbarSpacer: React.FunctionComponent = () => {
   return (
     // <Segment inverted fixed="top" size="mini">
     <Suspense fallback={<></>}>
-      <Menu stackable inverted style={{ marginTop: 0 }}>
+      <Menu inverted style={{ marginTop: 0, marginBottom: 0 }}>
         {/* <MenuItem>
         <Image
           alt="logo"

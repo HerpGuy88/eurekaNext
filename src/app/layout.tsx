@@ -1,8 +1,8 @@
 import bg from "../../assets/images/main_bg.jpg";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import "semantic-ui-css/semantic.min.css";
+import "./globals.css";
 import { Navbar, NavbarSpacer } from "@assets/components";
 import { Suspense } from "react";
 
@@ -24,10 +24,9 @@ export default function RootLayout({
         className={inter.className}
         style={{ backgroundImage: `url(${bg.src})` }}
       >
-        <Suspense fallback={<></>}>
-          <Navbar />
-          <NavbarSpacer />
-        </Suspense>
+        <Navbar />
+        <NavbarSpacer />
+
         <span className="mainContent">{children}</span>
       </body>
     </html>

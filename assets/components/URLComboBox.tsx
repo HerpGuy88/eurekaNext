@@ -18,7 +18,7 @@ const URLComboBox = ({
   onSubmit,
   ...props
 }: URLComboBoxProps) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState<any>("");
   return (
     <>
       <Dropdown
@@ -26,6 +26,7 @@ const URLComboBox = ({
         fluid
         selection
         onChange={(event, { value }) => setValue(value)}
+        //@ts-ignore
         options={URLDropdownOptions.map((option, index) => {
           return {
             key: index,

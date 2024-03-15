@@ -5,7 +5,7 @@ export type LoaderType = "gltf" | "draco";
 export type x = number;
 export type y = number;
 export type z = number;
-export type Position = [x, y, z] | Vector3;
+export type Position = [x, y, z];
 export type Rotation = [x, y, z] | Euler | Quaternion;
 
 export type XRObjectProps = JSX.IntrinsicElements["mesh"] & {

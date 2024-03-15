@@ -1,4 +1,5 @@
 "use client";
+// @ts-nocheck
 
 import { Suspense, useRef, useState, useEffect, useMemo } from "react";
 import { VRButton, ARButton, XR, Controllers, Hands } from "@react-three/xr";

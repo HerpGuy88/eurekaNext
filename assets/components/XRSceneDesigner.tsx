@@ -1,6 +1,6 @@
 "use client";
 // @ts-nocheck
-
+import WebXRPolyfill from "webxr-polyfill";
 import { Suspense, useRef, useState, useEffect, useMemo } from "react";
 import { VRButton, ARButton, XR, Controllers, Hands } from "@react-three/xr";
 import { Canvas } from "@react-three/fiber";
@@ -24,6 +24,8 @@ import { Euler, Matrix4, Quaternion, Vector3 } from "three";
 import WithPivot from "./WithPivot";
 import URLComboBox from "./URLComboBox";
 // import { PivotControlsProps } from "@react-three/drei/web/pivotControls" //this type is not exported, maybe make a PR?
+
+const polyfill = new WebXRPolyfill();
 
 function ModelCard({
   model,

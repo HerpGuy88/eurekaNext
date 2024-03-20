@@ -18,7 +18,8 @@
     "react-dom": "^18",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5",
-    "three": "^0.161.0"
+    "three": "^0.161.0",
+    "webxr-polyfill": "^2.0.3"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -8,6 +8,14 @@ export type z = number;
 export type Position = [x, y, z];
 export type Rotation = [x, y, z] | Euler | Quaternion;
 
+export type units = ["inches", "feet", "cm", "m", "mm"];
+export type numberOfUnits = number | [x, y, z];
+
+export type ScaleBarProps = {
+  units?: units;
+  numberOfUnits?: numberOfUnits;
+};
+
 export type XRObjectProps = JSX.IntrinsicElements["mesh"] & {
   modelURL: string;
   loaderType: LoaderType;

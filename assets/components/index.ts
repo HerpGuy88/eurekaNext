@@ -1,7 +1,9 @@
 export * as types from "./types";
 export { default as Navbar } from "./Navbar";
 export { default as NavbarSpacer } from "./NavbarSpacer";
+// export { default as PolyfillProvider } from "./PolyfillProvider";
 export { default as ResponsiveMenu } from "./ResponsiveMenu";
+export { default as ScaleBar } from "./ScaleBar";
 export { default as URLComboBox } from "./URLComboBox";
 export { default as XRScene } from "./XRScene";
 export { default as XRSceneDesigner } from "./XRSceneDesigner";

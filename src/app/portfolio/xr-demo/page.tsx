@@ -94,10 +94,13 @@ export default function XRDemo() {
     // <p>hi</p>
     //@ts-ignore */}
     <XRSceneDesigner
+      XRObjectPropsArray={propsArray}
       URLDropdownOptions={urlOptions}
       allowURLEntry={true}
       onSessionEnd={removeXRparam}
       onSessionStart={addXRparam}
-    ></XRSceneDesigner>
+    >
+      <Environment files="/zavelstein_1k.exr" background />
+    </XRSceneDesigner>
   );
 }

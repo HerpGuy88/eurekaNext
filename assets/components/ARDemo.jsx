@@ -1,24 +1,28 @@
 "use client";
 
-// import { ARCanvas, ARMarker } from "@artcom/react-three-arjs";
+import { ARCanvas, ARMarker } from "@artcom/react-three-arjs/lib/ar/";
 import dynamic from "next/dynamic";
+import { useIsClient } from ".";
 // import { useWindowDimensions } from "@assets/functions";
-const ARMarker = dynamic(
-  import("@artcom/react-three-arjs").then((c) => c.ARMarker)
-);
-const ARCanvas = dynamic(
-  import("@artcom/react-three-arjs").then((c) => c.ARCanvas)
+
+// const ARMarker = dynamic(import("./ARMarker"), { ssr: false });
+// const ARCanvas = dynamic(import("./ARCanvas"), { ssr: false });
+
+const useWindowDimensions = dynamic(
+  import("@assets/functions/useWindowDimensions"),
+  { ssr: false }
 );
 
 const ARDemo = () => {
-  // const isClient = useIsClient();
-  // const { width, height } = useWindowDimensions();
-  if (1 === 0) {
+  const isClient = useIsClient();
+  const { width, height } = useWindowDimensions();
+  const hasWindow = typeof window !== "undefined";
+  if (true) {
     return (
       <ARCanvas
         camera={{ position: [0, 0, 0] }}
         onCreated={({ gl }) => {
-          gl.setSize(width, height);
+          gl.setSize(1000, 1000);
         }}
       >
         <ambientLight />

@@ -3,6 +3,7 @@
 import { ARCanvas, ARMarker } from "@artcom/react-three-arjs/lib/ar/";
 import dynamic from "next/dynamic";
 import { useIsClient } from ".";
+import Model from "./Model";
 // import { useWindowDimensions } from "@assets/functions";
 
 // const ARMarker = dynamic(import("./ARMarker"), { ssr: false });
@@ -29,16 +30,18 @@ const ARDemo = () => {
         <pointLight position={[10, 10, 0]} />
         <ARMarker
           params={{ smooth: true }}
-          type={"pattern"}
+          type={"barcode"}
+          barcodeValue={6}
           patternUrl={"data/patt.hiro"}
           onMarkerFound={() => {
             console.log("Marker Found");
           }}
         >
-          <mesh>
+          {/* <mesh>
             <boxGeometry args={[1, 1, 1]} />
             <meshStandardMaterial color={"green"} />
-          </mesh>
+          </mesh> */}
+          <Model modelURL="models/mortello_decimated.glb"></Model>
         </ARMarker>
       </ARCanvas>
     );

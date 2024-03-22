@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { CameraControls, Environment } from "@react-three/drei";
-import { XRScene, XRSceneDesigner } from "@assets/components";
+import XRSceneDesigner from "@assets/components/XRSceneDesigner";
 import { XRObjectProps, XRObjectDesignerProps } from "@assets/components/types";
 import { useRouter, usePathname } from "next/navigation";
 import styles from "@/app/page.module.css";
@@ -94,13 +94,10 @@ export default function XRDemo() {
     // <p>hi</p>
     //@ts-ignore */}
     <XRSceneDesigner
-      XRObjectPropsArray={propsArray}
       URLDropdownOptions={urlOptions}
       allowURLEntry={true}
       onSessionEnd={removeXRparam}
       onSessionStart={addXRparam}
-    >
-      <Environment files="/zavelstein_1k.exr" background />
-    </XRSceneDesigner>
+    ></XRSceneDesigner>
   );
 }

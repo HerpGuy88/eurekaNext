@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    esmExternals: false,
+    // esmExternals: false,
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -25,6 +25,8 @@ const nextConfig = {
 
       return entries;
     };
+
+    config.devtool = "source-map";
 
     return config;
   },

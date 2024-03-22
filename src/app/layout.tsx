@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "semantic-ui-css/semantic.min.css";
 import "./globals.css";
-import { Navbar, NavbarSpacer } from "@assets/components";
+import { Navbar, NavbarSpacer, IsClientCtxProvider } from "@assets/components";
 import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -31,14 +31,15 @@ export default function RootLayout({
         className={inter.className}
         style={{ backgroundImage: `url(${bg.src})` }}
       >
-        <Suspense fallback={<></>}>
-          <div>
-            <Navbar />
-            <NavbarSpacer />
-          </div>
-        </Suspense>
-
-        <span className="mainContent">{children}</span>
+        <IsClientCtxProvider>
+          <Suspense fallback={<></>}>
+            <div>
+              <Navbar />
+              <NavbarSpacer />
+            </div>
+          </Suspense>
+          <span className="mainContent">{children}</span>
+        </IsClientCtxProvider>
       </body>
     </html>
   );

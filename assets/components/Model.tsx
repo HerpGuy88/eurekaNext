@@ -3,6 +3,15 @@ import { MeshBasicMaterial } from "three";
 import { PrimitiveProps } from "@react-three/fiber";
 import { useTraverseGLTF } from "@assets/functions";
 
+function Fallback(): React.ReactNode {
+  return (
+    <mesh>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color={"green"} />
+    </mesh>
+  );
+}
+
 const Model = forwardRef<any, PrimitiveProps>((props, ref) => {
   const { modelURL, onClick, highlighted, hidden } = props;
 
@@ -24,13 +33,16 @@ const Model = forwardRef<any, PrimitiveProps>((props, ref) => {
   };
 
   return (
-    <group ref={ref} {...props} dispose={null}>
-      <mesh
-        geometry={geometry}
-        material={conditionalMaterial(material)}
-        onClick={onClick}
-      />
-    </group>
+    //@ts-ignore
+    <Suspense fallback={Fallback}>
+      <group ref={ref} {...props} dispose={null}>
+        <mesh
+          geometry={geometry}
+          material={conditionalMaterial(material)}
+          onClick={onClick}
+        />
+      </group>
+    </Suspense>
   );
 });
 Model.displayName = "Model";

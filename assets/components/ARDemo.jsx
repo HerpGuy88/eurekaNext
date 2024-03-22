@@ -1,18 +1,18 @@
 "use client";
 
-import { ARCanvas, ARMarker } from "@artcom/react-three-arjs/lib/ar/";
-import dynamic from "next/dynamic";
+import { ARCanvas, ARMarker } from "@artcom/react-three-arjs";
+// import dynamic from "next/dynamic";
 import { useIsClient } from ".";
 import Model from "./Model";
-// import { useWindowDimensions } from "@assets/functions";
+import { useWindowDimensions } from "@assets/functions";
 
 // const ARMarker = dynamic(import("./ARMarker"), { ssr: false });
 // const ARCanvas = dynamic(import("./ARCanvas"), { ssr: false });
 
-const useWindowDimensions = dynamic(
-  import("@assets/functions/useWindowDimensions"),
-  { ssr: false }
-);
+// const useWindowDimensions = dynamic(
+//   import("@assets/functions/useWindowDimensions"),
+//   { ssr: false }
+// );
 
 const ARDemo = () => {
   const isClient = useIsClient();

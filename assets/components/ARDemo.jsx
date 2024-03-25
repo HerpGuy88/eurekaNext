@@ -15,15 +15,19 @@ import { useWindowDimensions } from "@assets/functions";
 // );
 
 const ARDemo = () => {
-  const isClient = useIsClient();
   const { width, height } = useWindowDimensions();
-  const hasWindow = typeof window !== "undefined";
   if (true) {
     return (
       <ARCanvas
         camera={{ position: [0, 0, 0] }}
         onCreated={({ gl }) => {
           gl.setSize(width, height);
+        }}
+        params={{
+          sourceWidth: width,
+          sourceHeight: height,
+          displayWidth: width,
+          displayHeight: height,
         }}
       >
         <ambientLight />

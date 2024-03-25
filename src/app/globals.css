@@ -127,3 +127,19 @@ a {
   flex-flow: column;
   height: 100%;
 }
+
+#AR {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  display: flex;
+}
+
+#page_main__GlU4n {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}

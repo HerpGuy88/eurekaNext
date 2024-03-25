@@ -19,6 +19,8 @@ const ARDemo = () => {
   if (true) {
     return (
       <ARCanvas
+        className="AR"
+        style={{ width, height: "90vh" }}
         camera={{ position: [0, 0, 0] }}
         onCreated={({ gl }) => {
           gl.setSize(width, height);
@@ -39,6 +41,7 @@ const ARDemo = () => {
         <ambientLight />
         <pointLight position={[10, 10, 0]} />
         <ARMarker
+          className="AR"
           params={{
             smooth: true,
             // "smooth-tolerance": 0.05,

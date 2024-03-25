@@ -23,6 +23,12 @@ const ARDemo = () => {
         onCreated={({ gl }) => {
           gl.setSize(width, height);
         }}
+        gl={{
+          alpha: true,
+          antialias: true,
+          precision: "highp",
+          logarithmicDepthBuffer: true,
+        }}
         params={{
           sourceWidth: width,
           sourceHeight: height,

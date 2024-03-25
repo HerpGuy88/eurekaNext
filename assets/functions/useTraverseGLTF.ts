@@ -4,6 +4,7 @@ import { useGLTF } from "@react-three/drei";
 import { Mesh } from "three";
 
 export default function useTraverseGLTF(modelURL: string) {
+  useGLTF.preload(modelURL);
   const { scene } = useGLTF(modelURL);
   let geometry;
   let material;

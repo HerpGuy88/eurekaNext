@@ -23,13 +23,18 @@ const ARDemo = () => {
       <ARCanvas
         camera={{ position: [0, 0, 0] }}
         onCreated={({ gl }) => {
-          gl.setSize(1000, 1000);
+          gl.setSize(width, height);
         }}
       >
         <ambientLight />
         <pointLight position={[10, 10, 0]} />
         <ARMarker
-          params={{ smooth: true }}
+          params={{
+            smooth: true,
+            // "smooth-tolerance": 0.05,
+            // "smooth-count": 10,
+            // "smooth-threshold": 5,
+          }}
           type={"barcode"}
           barcodeValue={6}
           patternUrl={"data/patt.hiro"}
@@ -41,7 +46,7 @@ const ARDemo = () => {
             <boxGeometry args={[1, 1, 1]} />
             <meshStandardMaterial color={"green"} />
           </mesh> */}
-          <Model modelURL="models/mortello_decimated.glb"></Model>
+          <Model scale={0.5} modelURL="models/mortello_draco.drc.glb"></Model>
         </ARMarker>
       </ARCanvas>
     );

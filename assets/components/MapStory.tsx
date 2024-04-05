@@ -30,11 +30,13 @@ import {
 } from "semantic-ui-react";
 
 import { VRButton, ARButton, XR, Controllers, Hands } from "@react-three/xr";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { CameraControls, OrbitControls, Stage } from "@react-three/drei";
 import { MapStoryProps } from "./types";
-import Model from "./Model";
+import React from "react";
+// import Model from "./Model";
 
+const Model = React.lazy(() => import("./Model"));
 // MapContainer.prototype._;
 
 const MapController = () => {
@@ -45,6 +47,20 @@ const MapController = () => {
   // do something with map, in a useEffect hook, for example.
 
   return <></>;
+};
+
+const Loading3D = () => {
+  const octRef = useRef<any>(null);
+  useFrame(() => {
+    octRef.current.rotation.y += 0.01;
+  });
+
+  return (
+    <mesh ref={octRef} rotation-y={Math.PI * 0.25}>
+      <octahedronGeometry args={[1.5, 0]} />
+      <meshStandardMaterial color={0xd00000} />
+    </mesh>
+  );
 };
 
 export default function MapStory({
@@ -197,10 +213,21 @@ export default function MapStory({
               <XR>
                 <Stage>
                   {selected > -1 && mapItems[selected]?.media?.mediaURL && (
-                    <Model
-                      rotation={mapItems[selected]?.media?.rotation}
-                      modelURL={mapItems[selected]?.media?.mediaURL}
-                    />
+                    <Suspense
+                      fallback={
+                        <Loading3D />
+                        // <mesh rotation-x={Math.PI * 0.25}>
+                        //   <octahedronGeometry args={[2, 0]} />
+                        //   <meshStandardMaterial color={0xd00000} />
+                        // </mesh>
+                      }
+                    >
+                      <Model
+                        rotation={mapItems[selected]?.media?.rotation}
+                        modelURL={mapItems[selected]?.media?.mediaURL}
+                        scale={mapItems[selected]?.media?.scale}
+                      />
+                    </Suspense>
                   )}
                 </Stage>
                 <Hands />

@@ -71,6 +71,7 @@ export type MapMedia = {
   mediaType: "model" | "video" | "image" | "audio" | "text";
   mediaURL?: string;
   rotation?: Rotation;
+  scale?: number;
 };
 
 export type MapItem = {

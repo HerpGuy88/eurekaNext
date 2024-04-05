@@ -29,6 +29,7 @@ const props: MapStoryProps = {
         mediaType: "model",
         mediaURL: "models/mortello.glb",
         rotation: [-1.6, 0, 0],
+        scale: 0.2,
       },
     },
     //governmanet house: 17.64108956589416, -61.82587035407267
@@ -41,6 +42,7 @@ const props: MapStoryProps = {
         mediaType: "model",
         mediaURL: "models/government_house.glb",
         rotation: [-1.6, 0, -0.8],
+        scale: 0.15,
       },
     },
     //pier: 17.64173747983183, -61.82850208676978
@@ -53,6 +55,7 @@ const props: MapStoryProps = {
         mediaType: "model",
         mediaURL: "models/pier.glb",
         rotation: [1.3, 0.53, -1.22],
+        scale: 0.05,
         // rotation: [0, 0, 0],
       },
     },
@@ -66,6 +69,7 @@ const props: MapStoryProps = {
         mediaType: "model",
         mediaURL: "models/ginnery.glb",
         rotation: [-1.5, 0, 0],
+        scale: 0.15,
       },
     },
     //ginnery annex: 17.64199217, -61.82725733
@@ -94,6 +98,7 @@ const props: MapStoryProps = {
         mediaType: "model",
         mediaURL: "models/lime_kilm.glb",
         rotation: [-1.6, 0, -1.6],
+        scale: 0.5,
       },
     },
     //gunshop cliff: 17.6690843673667, -61.7688797834
@@ -102,7 +107,11 @@ const props: MapStoryProps = {
       longitude: -61.7688797834,
       title: "Gunshop Cliff",
       text: "The Mortellow Tower",
-      media: { mediaType: "model", mediaURL: "models/gunshop.glb" },
+      media: {
+        mediaType: "model",
+        mediaURL: "models/gunshop.glb",
+        scale: 0.15,
+      },
     },
     //petroglyph: 17.6686973934194, -61.769007879129
     // {

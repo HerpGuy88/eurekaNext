@@ -14,6 +14,8 @@ export { default as XRObjectDesigner } from "./XRObjectDesigner";
 export { default as WithPivot } from "./WithPivot";
 export { default as ARDemo } from "./ARDemo";
 export { IsClientCtxProvider, useIsClient } from "./IsClient";
+export { default as MapStory } from "./MapStory";
+export { default as XROverlay } from "./XROverlay";
 
 export { default as DebugSceneDesigner } from "./DebugScenDesigner";
 

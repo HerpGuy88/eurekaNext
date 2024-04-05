@@ -63,3 +63,29 @@ export type XRSceneDesignerProps = XRSceneProps & {
   URLDropdownOptions?: Array<URLDropdownOption>;
   allowURLEntry?: boolean;
 };
+
+type Latitude = number;
+type Longitude = number;
+
+export type MapMedia = {
+  mediaType: "model" | "video" | "image" | "audio" | "text";
+  mediaURL?: string;
+  rotation?: Rotation;
+};
+
+export type MapItem = {
+  latitude: Latitude;
+  longitude: Longitude;
+  title: string;
+  text?: string;
+  media?: MapMedia;
+};
+
+export type MapStoryProps = {
+  latitude: Latitude;
+  longitude: Longitude;
+  zoom?: number;
+  title: string;
+  text?: string;
+  mapItems: Array<MapItem>;
+};

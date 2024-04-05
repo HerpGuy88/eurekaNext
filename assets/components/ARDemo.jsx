@@ -59,7 +59,11 @@ const ARDemo = () => {
             <boxGeometry args={[1, 1, 1]} />
             <meshStandardMaterial color={"green"} />
           </mesh> */}
-          <Model scale={0.5} modelURL="models/mortello_draco.drc.glb"></Model>
+          <Model
+            scale={0.25}
+            modelURL="models/mortello.glb"
+            rotation={[-Math.PI, 0, 0]}
+          ></Model>
         </ARMarker>
       </ARCanvas>
     );

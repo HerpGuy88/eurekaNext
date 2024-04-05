@@ -66,8 +66,9 @@ const urlOptions = [
     title: "Female Classical Figurine",
     thumbURL:
       "https://mediacommons.unl.edu/MediaManager/srvr?mediafile=/Size3/UNL~144~144/1734/1997-2256.jpg",
-    modelURL:
-      "https://mediacommons.unl.edu/MediaManager/srvr?mediafile=/MISC/UNL~144~144/1734/clothed_c.glb",
+    // modelURL:
+    //   "https://mediacommons.unl.edu/MediaManager/srvr?mediafile=/MISC/UNL~144~144/1734/clothed_c.glb",
+    modelURL: "models/pier.glb",
     text: "1997.2256: Bisque porcelain classical figurine, standing female in off-shoulder draperies, hair up in bun, on square base.",
   },
 ];

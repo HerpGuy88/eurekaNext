@@ -126,9 +126,9 @@ const props: MapStoryProps = {
 export default function page() {
   return (
     <>
-      <main className={styles.main}>
-        <MapStory {...props} />
-      </main>
+      {/* <main className={styles.main}> */}
+      <MapStory {...props} />
+      {/* </main> */}
     </>
   );
 }

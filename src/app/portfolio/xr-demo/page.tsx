@@ -5,8 +5,6 @@ import { CameraControls, Environment } from "@react-three/drei";
 import XRSceneDesigner from "@assets/components/XRSceneDesigner";
 import { XRObjectProps, XRObjectDesignerProps } from "@assets/components/types";
 import { useRouter, usePathname } from "next/navigation";
-import styles from "@/app/page.module.css";
-// import hdr from "../../../../assets/hdris/zavelstei_1k.hdr";
 
 const propsArray: Array<XRObjectDesignerProps> = [
   {

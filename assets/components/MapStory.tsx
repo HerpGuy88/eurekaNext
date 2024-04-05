@@ -76,7 +76,13 @@ export default function MapStory({
     () => (
       <MapContainer
         //   @ts-ignore
-        containerStyle={{ height: "100%", width: "80%", zIndex: 1 }}
+        containerStyle={{
+          height: "80vh",
+          width: "80%",
+          zIndex: 1,
+          paddingBottom: 0,
+          marginBottom: 0,
+        }}
         center={[latitude, longitude]}
         //   zoomSnap={0.25}
         bounds={[
@@ -121,7 +127,7 @@ export default function MapStory({
     return <h1>Loading map...</h1>;
   }
   return (
-    <div style={{ height: "90vh", width: "100%" }}>
+    <div style={{ height: "100%", width: "100%" }}>
       <div
         style={{
           position: "absolute",
@@ -142,10 +148,10 @@ export default function MapStory({
             right: 0,
             marginLeft: "auto",
             marginRight: "auto",
-            height: "90vh",
+            height: "100%",
           }}
         >
-          <div style={{ top: 40, display: "flex", justifyContent: "center" }}>
+          <div style={{ top: 20, display: "flex", justifyContent: "center" }}>
             <Button onClick={() => setSelected(-1)}>Close</Button>
           </div>
           <VRButton />
@@ -177,37 +183,37 @@ export default function MapStory({
       <Container style={{ height: "100%", width: "100%" }}>
         {/* <Grid>
           <Grid.Row> */}
-        <Grid columns={1} stackable>
-          <Grid.Column>
-            <div
-              style={{
-                position: "absolute",
-                top: 30,
-                left: 0,
-                right: 0,
-                marginLeft: "auto",
-                marginRight: "auto",
-                zIndex: 450,
-              }}
-            >
-              <div
-                style={{
-                  flexDirection: "column",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <Segment inverted color="green">
-                    <h1>{title}</h1>
-                  </Segment>
-                </div>
-                <br />
-              </div>
+        {/* <Grid columns={1} stackable>
+          <Grid.Column> */}
+        <div
+          style={{
+            position: "absolute",
+            top: 30,
+            left: 0,
+            right: 0,
+            marginLeft: "auto",
+            marginRight: "auto",
+            zIndex: 450,
+          }}
+        >
+          <div
+            style={{
+              flexDirection: "column",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Segment inverted color="green">
+                <h1>{title}</h1>
+              </Segment>
             </div>
-            {displayMap}
+            <br />
+          </div>
+        </div>
+        {displayMap}
 
-            {/* <MapContainer
+        {/* <MapContainer
               //   @ts-ignore
               containerStyle={{ height: "100%", width: "80%", zIndex: 1 }}
               center={[latitude, longitude]}
@@ -246,9 +252,9 @@ export default function MapStory({
                 );
               })}
             </MapContainer> */}
-          </Grid.Column>
-          {/* </Grid.Row> */}
-        </Grid>
+        {/* </Grid.Column> */}
+        {/* </Grid.Row> */}
+        {/* </Grid> */}
       </Container>
     </div>
   );

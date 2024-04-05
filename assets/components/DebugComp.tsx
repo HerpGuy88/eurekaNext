@@ -32,7 +32,7 @@ export default function ResponsiveMenu({
     <Menu
       inverted
       fixed="top"
-      style={{ marginTop: 0, justifyContent: "center" }}
+      style={{ marginTop: 0, justifyContent: "center", zIndex: 1010 }}
     >
       {width > 789 ? (
         menuItems.map((item, index) => (

@@ -35,6 +35,18 @@ import { CameraControls, OrbitControls, Stage } from "@react-three/drei";
 import { MapStoryProps } from "./types";
 import Model from "./Model";
 
+// MapContainer.prototype._;
+
+const MapController = () => {
+  const map = useMap();
+  console.log(map);
+  console.log(map.getCenter());
+  console.log(map.keyboard);
+  // do something with map, in a useEffect hook, for example.
+
+  return <></>;
+};
+
 export default function MapStory({
   latitude,
   longitude,
@@ -84,6 +96,7 @@ export default function MapStory({
           marginBottom: 0,
         }}
         center={[latitude, longitude]}
+        keyboard={false}
         //   zoomSnap={0.25}
         bounds={[
           [17.542775, -61.889772],
@@ -93,8 +106,14 @@ export default function MapStory({
         // @ts-ignore
         //   zoom={zoom | 7}
         key={new Date().getTime()}
-        ref={(el) => (map.current = el)}
+        ref={(el) => {
+          // el.prototype._refocusOnMap = () => {};
+          // console.log(el.getContainer());
+          map.current = el;
+        }}
+        whenReady={() => console.log(map)}
       >
+        <MapController />
         <TileLayer
           //@ts-ignore
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -143,15 +162,26 @@ export default function MapStory({
         <div
           style={{
             position: "absolute",
-            top: 30,
+            top: 0,
             left: 0,
             right: 0,
             marginLeft: "auto",
             marginRight: "auto",
+            // paddingTop: 60,
             height: "100%",
           }}
         >
-          <div style={{ top: 20, display: "flex", justifyContent: "center" }}>
+          <div
+            style={{
+              // position: "absolute",
+              // top: 20,
+              marginTop: 40,
+              display: "flex",
+              justifyContent: "center",
+              // flexDirection: "column",
+            }}
+          >
+            <div style={{ height: 30 }}></div>
             <Button onClick={() => setSelected(-1)}>Close</Button>
           </div>
           <VRButton />

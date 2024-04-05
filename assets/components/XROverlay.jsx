@@ -1,3 +1,5 @@
+"use client";
+
 import { Suspense, useRef, useLayoutEffect } from "react";
 
 import { Button, Segment } from "semantic-ui-react";

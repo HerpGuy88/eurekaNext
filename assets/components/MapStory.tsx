@@ -34,9 +34,10 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { CameraControls, OrbitControls, Stage } from "@react-three/drei";
 import { MapStoryProps } from "./types";
 import React from "react";
-// import Model from "./Model";
+import Loading3D from "./Loading3D";
+import BasicModel from "./BasicModel";
 
-const Model = React.lazy(() => import("./Model"));
+// const Model = React.lazy(() => import("./Model"));
 // MapContainer.prototype._;
 
 const MapController = () => {
@@ -49,19 +50,19 @@ const MapController = () => {
   return <></>;
 };
 
-const Loading3D = () => {
-  const octRef = useRef<any>(null);
-  useFrame(() => {
-    octRef.current.rotation.y += 0.01;
-  });
+// const Loading3D = () => {
+//   const octRef = useRef<any>(null);
+//   useFrame(() => {
+//     octRef.current.rotation.y += 0.01;
+//   });
 
-  return (
-    <mesh ref={octRef} rotation-y={Math.PI * 0.25}>
-      <octahedronGeometry args={[1.5, 0]} />
-      <meshStandardMaterial color={0xd00000} />
-    </mesh>
-  );
-};
+//   return (
+//     <mesh ref={octRef} rotation-y={Math.PI * 0.25}>
+//       <octahedronGeometry args={[1.5, 0]} />
+//       <meshStandardMaterial color={0xd00000} />
+//     </mesh>
+//   );
+// };
 
 export default function MapStory({
   latitude,
@@ -222,7 +223,7 @@ export default function MapStory({
                         // </mesh>
                       }
                     >
-                      <Model
+                      <BasicModel
                         rotation={mapItems[selected]?.media?.rotation}
                         modelURL={mapItems[selected]?.media?.mediaURL}
                         scale={mapItems[selected]?.media?.scale}

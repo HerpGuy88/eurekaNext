@@ -1,4 +1,5 @@
 export * as types from "./types";
+export { default as Loading3D } from "./Loading3D";
 export { default as Navbar } from "./Navbar";
 export { default as NavbarSpacer } from "./NavbarSpacer";
 // export { default as PolyfillProvider } from "./PolyfillProvider";

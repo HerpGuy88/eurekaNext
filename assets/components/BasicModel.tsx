@@ -1,12 +1,11 @@
 "use client";
 
-import { forwardRef, Suspense } from "react";
-import { Mesh, MeshBasicMaterial } from "three";
-import { PrimitiveProps, useLoader } from "@react-three/fiber";
+import { forwardRef, Suspense, useEffect } from "react";
+import { Mesh } from "three";
+import { PrimitiveProps } from "@react-three/fiber";
 // import { useTraverseGLTF } from "@assets/functions";
 import { useGLTF } from "@react-three/drei";
 import Loading3D from "./Loading3D";
-import { GLTFLoader } from "three/examples/jsm/Addons.js";
 
 const Model = forwardRef<any, PrimitiveProps>((props, ref) => {
   const { modelURL, onClick, ...rest } = props;
@@ -20,6 +19,12 @@ const Model = forwardRef<any, PrimitiveProps>((props, ref) => {
   useGLTF.preload(modelURL);
   //@ts-ignore
   const { scene } = useGLTF(modelURL);
+  useEffect(() => {
+    return () => {
+      console.log(modelURL);
+      useGLTF.clear(modelURL);
+    };
+  }, [modelURL]);
   let geometry;
   let material;
   scene.traverse((child: any) => {

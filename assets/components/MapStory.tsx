@@ -42,9 +42,9 @@ import BasicModel from "./BasicModel";
 
 const MapController = () => {
   const map = useMap();
-  console.log(map);
-  console.log(map.getCenter());
-  console.log(map.keyboard);
+  // console.log(map);
+  // console.log(map.getCenter());
+  // console.log(map.keyboard);
   // do something with map, in a useEffect hook, for example.
 
   return <></>;

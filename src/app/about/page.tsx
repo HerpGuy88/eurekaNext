@@ -1,7 +1,9 @@
+"use client";
+
 import styles from "@/app/page.module.css";
 import { Segment } from "semantic-ui-react";
 
-export default function writing() {
+export default function Home() {
   return (
     <>
       <main className={styles.main}>

@@ -114,8 +114,12 @@ body {
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  color: #347deb;
+  text-decoration: underline;
+}
+
+li {
+  margin: 10px 0 0 10px;
 }
 
 @media (prefers-color-scheme: dark) {

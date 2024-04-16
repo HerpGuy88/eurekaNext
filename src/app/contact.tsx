@@ -1,10 +1,16 @@
 import styles from "@/app/page.module.css";
+import { Segment } from "semantic-ui-react";
 
 export default function contact() {
   return (
     <>
       <main className={styles.main}>
-        <h1>Contact</h1>
+        <Segment inverted>
+          <h1>This page is under construction. Check back later!!!</h1>
+        </Segment>
+        <div className={styles.center}></div>
+
+        <div className={styles.grid}></div>
       </main>
     </>
   );

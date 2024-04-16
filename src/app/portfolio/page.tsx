@@ -72,7 +72,7 @@ export default function Home() {
                           </li>
                           <li>
                             <a
-                              href="/portfolio/ar_marker_in_qr.png"
+                              href="/portfolio/ar_qr_red.png"
                               target="_blank"
                               rel="noopener noreferrer"
                             >

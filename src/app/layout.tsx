@@ -31,15 +31,19 @@ export default function RootLayout({
         className={inter.className}
         style={{ backgroundImage: `url(${bg.src})` }}
       >
-        <IsClientCtxProvider>
-          <Suspense fallback={<></>}>
-            <div>
-              <Navbar />
-              <NavbarSpacer />
-            </div>
-          </Suspense>
-          <span className="mainContent">{children}</span>
-        </IsClientCtxProvider>
+        <div className="wrapper">
+          <div className="outer">
+            <IsClientCtxProvider>
+              <Suspense fallback={<></>}>
+                <div>
+                  <Navbar />
+                  <NavbarSpacer />
+                </div>
+              </Suspense>
+              <span className="mainContent">{children}</span>
+            </IsClientCtxProvider>
+          </div>
+        </div>
       </body>
     </html>
   );

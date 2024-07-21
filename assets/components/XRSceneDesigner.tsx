@@ -10,6 +10,10 @@ import {
   Input,
   Segment,
   SegmentGroup,
+  Accordion,
+  AccordionTitle,
+  Icon,
+  AccordionContent,
 } from "semantic-ui-react";
 import XRObjectDesigner from "./XRObjectDesigner";
 import {
@@ -18,7 +22,7 @@ import {
   Position,
   Rotation,
 } from "./types";
-import { truncate } from "@assets/functions";
+import { downloadLocal, loadJSON, truncate } from "@assets/functions";
 import { Euler, Matrix4, Quaternion, Vector3 } from "three";
 import WithPivot from "./WithPivot";
 // import PolyfillProvider from "./PolyfillProvider";
@@ -107,7 +111,9 @@ export default function XRSceneDesigner({
     Array<XRObjectDesignerProps>
   >([]);
   const [newURL, setNewURL] = useState("");
+  const [file, setFile] = useState();
   const [controlsHidden, setControlsHidden] = useState(false);
+  const [exportHidden, setExportHidden] = useState(true);
 
   useEffect(() => {
     setMeshArray(XRObjectPropsArray);
@@ -210,10 +216,17 @@ export default function XRSceneDesigner({
     }
   };
 
+  const downloadJson = () => {
+    // console.log("let's download this");
+    const json = JSON.stringify(meshArray);
+    downloadLocal(json, "xrscene.json", "application/json");
+  };
+
   return (
     <div
       style={{
         height: "95vh",
+        overflowY: "scroll",
       }}
     >
       <Segment
@@ -229,7 +242,11 @@ export default function XRSceneDesigner({
           {controlsHidden ? "Show Controls" : "Hide Controls"}
         </Button>
         <div
-          style={controlsHidden ? { visibility: "collapse", height: 0 } : {}}
+          style={
+            controlsHidden
+              ? { visibility: "collapse", height: 0 }
+              : { height: "90vh", overflowY: "auto" }
+          }
         >
           <SegmentGroup>
             <Segment>
@@ -263,7 +280,7 @@ export default function XRSceneDesigner({
                 // flexDirection: "column",
                 // justifyContent: "flex-start",
                 height: "40vh",
-                overflowY: "scroll",
+                overflowY: "auto",
               }}
             >
               <SegmentGroup>
@@ -322,6 +339,37 @@ export default function XRSceneDesigner({
                 Highlight
               </Button>
             </Segment>
+            <Accordion>
+              <AccordionTitle
+                active={exportHidden}
+                onClick={() => setExportHidden(!exportHidden)}
+              >
+                <h3>
+                  <Icon name="dropdown"></Icon>Export / Import Scene
+                </h3>
+              </AccordionTitle>
+              <AccordionContent active={exportHidden}>
+                <Segment>
+                  <Button compact onClick={downloadJson}>
+                    Download
+                  </Button>
+
+                  <Input
+                    type="file"
+                    accept=".json"
+                    // @ts-ignore
+                    onChange={(e) => setFile(e.target.files[0])}
+                  ></Input>
+                  <Button
+                    compact
+                    disabled={!file}
+                    onClick={() => loadJSON(file).then((x) => setMeshArray(x))}
+                  >
+                    Load Scene
+                  </Button>
+                </Segment>
+              </AccordionContent>
+            </Accordion>
           </SegmentGroup>
         </div>
       </Segment>
